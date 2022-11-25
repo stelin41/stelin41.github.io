@@ -14,25 +14,25 @@
 &lt;/div>
 &lt;h1 id="final-fix">Final fix&lt;/h1>
 &lt;p>So I reset the NVRAM and the screen was black again&amp;hellip; as expected. I downloaded the schematics, disassembled the laptop, turned it on, and began to measure some voltages with my polymeter. When I checked the voltage going to the screen I got 0 volts. Huh, no wonder why it wasn&amp;rsquo;t working. After, I measured the vcore (the voltage that is supplied to the dGPU), and I got 0 volts too! U8900 is the chip that manages these voltages, a.k.a. the power supply, wich apparently has cracked welds. It&amp;rsquo;s almost literally falling off the board. Why? Because that&amp;rsquo;s what Apple does! So with a bit of help I reinforced the welds, reassembled everything, and booted again. And wow, it worked!&lt;/p>
-&lt;p>Right now im writing this from the MBP using nvim! I&amp;rsquo;m really happy!&lt;/p></content></item><item><title>Contact</title><link>https://stelin41.github.io/en/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stelin41.github.io/en/contact/</guid><description>Greetings! I&amp;rsquo;m stelin41, a Spanish student who loves learning how computers work. In my free time I enjoy creating, modding, fixing and breaking stuff. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so meanwhile you can take a look at my Twitter account. Oh, and I use Arch Gentoo BTW.</description><content>
+&lt;p>Right now im writing this from the MBP using neovim! I&amp;rsquo;m really happy!&lt;/p></content></item><item><title>Contact</title><link>https://stelin41.github.io/en/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stelin41.github.io/en/contact/</guid><description>Greetings! I&amp;rsquo;m stelin41, a spanish student and I love learning how computers work. In my free time I enjoy creating, modding, fixing and breaking stuff. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so meanwhile you can take a look at my Twitter or my Mastodon account. If you find any typo or logic error, I would appreciate if you let me know by email: stelin41[dot]crypto[at]gmail[dot]com</description><content>
 &lt;br>
 &lt;img src="https://stelin41.github.io/img/p4rrot_icon.png" alt="stelin41&amp;#39;s pfp" class="center" style="border-radius: 100%; height: 41%; width: 41%; box-shadow: 0px 0px 2mm 2mm #000A;" />
 &lt;br>
 &lt;div class="social-media-links" style="display: flex; justify-content: center; gap: 4%;">
-&lt;a href="mailto:stelin41.crypto@gmail.com">
-&lt;image src="https://stelin41.github.io/img/Email.svg" alt="envelope" position="center" style="height: 24px; width: 24px; float: left; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);">
-&lt;/a>
 &lt;a href="https://github.com/stelin41">
-&lt;image src="https://stelin41.github.io/img/Github.svg" alt="envelope" position="center" style="height: 24px; width: 24px; float: left; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);" >
+&lt;image src="https://stelin41.github.io/img/Github.svg" alt="GitHub" position="center" style="height: 24px; width: 24px; float: left; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);" >
 &lt;/a>
 &lt;a href="https://twitter.com/stelin41">
-&lt;image src="https://stelin41.github.io/img/Twitter.svg" alt="envelope" position="center" style="height: 24px; width: 24px; float: left; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);" >
+&lt;image src="https://stelin41.github.io/img/Twitter.svg" alt="Twitter" position="center" style="height: 24px; width: 24px; float: left; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);" >
 &lt;/a>
-&lt;a href="https://youtube.com">
+&lt;a rel="me" href="https://ioc.exchange/@stelin41">
+&lt;image src="https://stelin41.github.io/img/Mastodon.svg" alt="Mastodon" position="left" style="height: 24px; width: 24px; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);" >
+&lt;/a>
+&lt;a href="https://youtube.com/@stelin41">
 &lt;image src="https://stelin41.github.io/img/YouTube.svg" alt="envelope" position="left" style="height: 24px; width: 24px; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);" >
 &lt;/a>
 &lt;/div>
 &lt;br>
 &lt;blockquote>
-&lt;p>Greetings! I&amp;rsquo;m stelin41, a Spanish student who loves learning how computers work. In my free time I enjoy creating, modding, fixing and breaking stuff. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so meanwhile you can take a look at my &lt;a href="https://twitter.com/stelin41">&lt;strong>Twitter&lt;/strong>&lt;/a> account. Oh, and I use &lt;del>Arch&lt;/del> Gentoo BTW.&lt;/p>
+&lt;p>Greetings! I&amp;rsquo;m stelin41, a spanish student and I love learning how computers work. In my free time I enjoy creating, modding, fixing and breaking stuff. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so meanwhile you can take a look at my &lt;a href="https://twitter.com/stelin41">&lt;strong>Twitter&lt;/strong>&lt;/a> or my &lt;a href="https://ioc.exchange/@stelin41">&lt;strong>Mastodon&lt;/strong>&lt;/a> account. If you find any typo or logic error, I would appreciate if you let me know by email: stelin41[dot]crypto[at]gmail[dot]com&lt;/p>
 &lt;/blockquote></content></item></channel></rss>

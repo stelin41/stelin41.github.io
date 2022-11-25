@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>aplicaciones on stelin41</title>
+    <link>https://stelin41.github.io/es/tags/aplicaciones/</link>
+    <description>Recent content in aplicaciones on stelin41</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2022 stelin41</copyright>
+    <lastBuildDate>Fri, 25 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://stelin41.github.io/es/tags/aplicaciones/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Laser Trainer Pro</title>
+      <link>https://stelin41.github.io/es/posts/laser_trainer_pro/</link>
+      <pubDate>Fri, 25 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://stelin41.github.io/es/posts/laser_trainer_pro/</guid>
+      <description>Introducción Este es el segundo proyecto que he llegado a publicar. Es una aplicación de deportes para practicar la puntería desde casa. Sin duda este proyecto fué mucho más difícil e interesante de desarrollar que Flying Poo, el anterior que hice. Lo publiqué en 2021 y tardé unos dos meses para desarrollarlo.
+Tráiler:
+El desarrollo Exceptuando unas cinco líneas de código que hicieron falta para hacer que la cámara funcionase correctamente en IOS, todo está programado en Python usando un framework multiplataforma llamado Kivy.</description>
+      <content>&lt;h1 id=&#34;introducción&#34;&gt;Introducción&lt;/h1&gt;
+&lt;p&gt;Este es el segundo proyecto que he llegado a publicar. Es una aplicación de deportes para practicar la puntería desde casa. Sin duda este proyecto fué mucho más difícil e interesante de desarrollar que &lt;a href=&#34;https://stelin41.github.io/es/posts/flying_poo&#34;&gt;Flying Poo&lt;/a&gt;, el anterior que hice. Lo publiqué en 2021 y tardé unos dos meses para desarrollarlo.&lt;/p&gt;
+&lt;p&gt;Tráiler:&lt;/p&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube-nocookie.com/embed/yQjpZzEaq-s&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;el-desarrollo&#34;&gt;El desarrollo&lt;/h1&gt;
+&lt;p&gt;Exceptuando unas cinco líneas de código que hicieron falta para hacer que la cámara funcionase correctamente en IOS, todo está programado en Python usando un framework multiplataforma llamado Kivy. Lo hice así por dos razones: la primera es para acostumbrarme más a programar en Python, y la segunda es para no tener que reimplementar el mismo código para cada plataforma.&lt;/p&gt;
+&lt;p&gt;A primera vista, el principal reto para crear este programa es conseguir detectar la posición del láser. De hecho, esta fué una parte bastante divertida. Al principio pensé que usar redes neuronales podría ser una buena solución, pero acabé teniendo una mejor idea. Primero hice una gravación de prueba, donde aparecen diferentes disparos del láser, y luego usé la librería de OpenCV (aunque más tarde tuve que cambiarla por Numpy, porque no hay una receta que lo compile para IOS) para experimentar con varias ideas.&lt;/p&gt;
+&lt;p&gt;Tras muchos experimentos y pruebas se me ocurrió calcular la diferencia entre los píxeles del fotograma actual y el anterior, y funcionó sorprendentemente bien. Aparecía algo de ruido, pero se solucionó al filtrar los píxeles que variaban menos. Luego solo fué jugar un poco con los parámetros para mejorar los resultados. Aunque en condiciones de alta luminosidad el láser apenas destaca entre el ruido causado por la luz ambiental, por lo que tuve que implementar una función que detecta si este es el caso y avise al usuario. Decidí usar solo una de las capas RGB para ahorrar recursos y descubrí que el canal verde es el que detecta el láser más limpiamente (algo que me pareció curioso, ya que el láser que usé para las pruebas es rojo). Para calcular la puntuación, apliqué una máscara para saber dentro de qué anillo impactó el láser.&lt;/p&gt;
+&lt;h1 id=&#34;los-problemas&#34;&gt;Los problemas&lt;/h1&gt;
+&lt;p&gt;Después vino la parte algo menos entretenida: llevarlo a una aplicación real. Esta parte no tiene mucho misterio, y como la mayoría de proyectos de desarrollo de software se podría resumir en tres pasos: decidir cuál será el siguiente paso; googlear cómo hacer X; buscar porqué no funciona Z; y repetir. Este método funciona siempre y cuando alguien haya tenido un problema parecido antes o exista algún tipo de documentación. Dada la reducida comunidad que tiene Kivy, es de esperar que aparezcan problemas nunca planteados, pero cuando ni siquiera hay documentación que esté relacionada, esto se vuelve un verdadero problema.&lt;/p&gt;
+&lt;p&gt;Al intentar migrar el código a IOS, resultó que ya no podía acceder al buffer de la cámara para poder manipular la imágen. Como nada de esto está documentado, mi única opción era leer el código fuente de Kivy, y resulta que en la implementación de Kivy para IOS el código que usaba para acceder al buffer era inexistente, y no tengo conocimientos suficientes sobre IOS como para poder implementarlo por mí mismo. Mientras leía el código me daba cuenta de que mis opciones se reducían cada vez más, y empecé a entrar en desesperación. Pedir ayuda podría no ser una opción, ya que nadie ha sido capaz de capturar el buffer de la cámara en IOS&amp;hellip; ¿o tal vez sí? Ahí es donde entra mi salvación: &lt;a href=&#34;https://github.com/kivy-garden/zbarcam&#34;&gt;zbarcam&lt;/a&gt;, un escáner de códigos de barra y QRs.&lt;/p&gt;
+&lt;p&gt;Al parecer los desarrolladores de este paquete fueron los únicos que, usando Kivy, han sido capaces de acceder al buffer de la cámara desde IOS. Para facilitar el proceso y no tener que modificar el código fuente directamente, opté por importarlo y usar la magia de la POO para heredar las características de cualquier clase y poder modificar sus funciones a gusto.&lt;/p&gt;
+&lt;h1 id=&#34;resultados&#34;&gt;Resultados&lt;/h1&gt;
+&lt;p&gt;Gracias a este proyecto, pulí mis habilidades con Python y tuve una primera degustación de cómo es la investigación en el área de la computación, y resultó ser bastante divertido. Eso sí, me he saltado muchos problemas que tuve en este resumen, como usar las APIs de Android e IOS desde Python para poder imprimir la diana, o corregir la orientación de la cámara en IOS accediendo a la API del giroscopio y medir la inclinación (porque por algún motivo IOS gira por defecto la imágen en función de la orientación del teléfono, y no pude encontrar ninguna forma de desactivarlo con Kivy).&lt;/p&gt;
+&lt;p&gt;Dejo por aquí los enlaces a &lt;a href=&#34;https://play.google.com/store/apps/details?id=com.payday444.lasertrainerpro&amp;amp;hl=es&amp;amp;gl=ES&#34;&gt;Google Play&lt;/a&gt; y a la &lt;a href=&#34;https://apps.apple.com/es/app/laser-trainer-pro/id1579891923&#34;&gt;App Store&lt;/a&gt; por si le interesa a alguien.&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

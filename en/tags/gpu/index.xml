@@ -14,4 +14,4 @@
 &lt;/div>
 &lt;h1 id="final-fix">Final fix&lt;/h1>
 &lt;p>So I reset the NVRAM and the screen was black again&amp;hellip; as expected. I downloaded the schematics, disassembled the laptop, turned it on, and began to measure some voltages with my polymeter. When I checked the voltage going to the screen I got 0 volts. Huh, no wonder why it wasn&amp;rsquo;t working. After, I measured the vcore (the voltage that is supplied to the dGPU), and I got 0 volts too! U8900 is the chip that manages these voltages, a.k.a. the power supply, wich apparently has cracked welds. It&amp;rsquo;s almost literally falling off the board. Why? Because that&amp;rsquo;s what Apple does! So with a bit of help I reinforced the welds, reassembled everything, and booted again. And wow, it worked!&lt;/p>
-&lt;p>Right now im writing this from the MBP using nvim! I&amp;rsquo;m really happy!&lt;/p></content></item></channel></rss>
+&lt;p>Right now im writing this from the MBP using neovim! I&amp;rsquo;m really happy!&lt;/p></content></item></channel></rss>
