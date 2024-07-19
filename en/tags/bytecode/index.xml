@@ -42,7 +42,9 @@ Use ghidra with gameboy plugin in order that can help your reverse engineer the 
 &lt;/figure>
 &lt;/p>
 &lt;p>If you execute &lt;code>strings irony.gb&lt;/code> you can find this:&lt;/p>
-&lt;p>![[Captura de pantalla 2024-07-18 a las 17.33.52.png]]&lt;/p>
+&lt;figure class="center" >
+&lt;img src="https://stelin41.github.io/img/Irony/strings.png" style="border-radius: 8px;" />
+&lt;/figure>
 &lt;p>&lt;code>{Mew0_Mew0_G0_%d}&lt;/code> looks like part of the flag, but it&amp;rsquo;s using string formatting. That means &lt;code>%d&lt;/code> will be replaced with a number. The real challenge is finding that number.&lt;/p>
 &lt;h1 id="failed-attempts">Failed attempts&lt;/h1>
 &lt;p>In the challenge description they added a hint that using this &lt;a href="https://github.com/Gekkio/GhidraBoy">GameBoy extension for ghidra&lt;/a> could be useful for doing static analysis, so I started from there. However, for me it wasn&amp;rsquo;t very helpful. It can&amp;rsquo;t find most of the functions in the ROM so you must find them manually, and the pseudocode generated misses most of the functionality.&lt;/p>
