@@ -14,7 +14,7 @@ Use ghidra with gameboy plugin in order that can help your reverse engineer the 
 &lt;/blockquote>
 &lt;p>Flag example: &lt;code>CAT{Koi9_Koi9_E0_09876}&lt;/code>&lt;/p>
 &lt;p>Attachments: &lt;a href="https://cdn.cattheflag.org/irony.gb">&lt;code>irony.gb&lt;/code>&lt;/a>&lt;/p>
-&lt;p>Author: &lt;a href="https://www.youtube.com/channel/UCBudTXoJ6fJEcN5XBi2_xHw">Ir0nByte&lt;/a>&lt;/p>
+&lt;p>Challenge author: &lt;a href="https://www.youtube.com/channel/UCBudTXoJ6fJEcN5XBi2_xHw">Ir0nByte&lt;/a>&lt;/p>
 &lt;p>This was a reverse engineering challenge where they provided a ROM for the GameBoy. 9 teams could solve it. It took me about two days to solve it. I usually don&amp;rsquo;t do reverse engineering challenges because they are time intensive, but this CTF lasted 5 days.&lt;/p>
 &lt;h1 id="initial-analysis">Initial analysis&lt;/h1>
 &lt;p>You can use any GameBoy emulator to run it. I used the &lt;a href="https://bgb.bircd.org/">BGB emulator/debugger&lt;/a>. If you play it, you will find this gardener.&lt;/p>
