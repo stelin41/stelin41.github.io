@@ -52,7 +52,7 @@ Use ghidra with gameboy plugin in order that can help your reverse engineer the 
 &lt;img src="https://stelin41.github.io/img/Irony/ghidra.png" style="border-radius: 8px;" />
 &lt;/figure>
 &lt;p>I also looked for references to the address of the flag string, but ghidra found nothing.&lt;/p>
-&lt;p>BGB has a functionality called &amp;ldquo;cheat searcher&amp;rdquo; which can be used to find interesting addresses in memory. It it similar to Cheat Engine. With that I found where the counter variable is stored in memory.&lt;/p>
+&lt;p>BGB has a functionality called &amp;ldquo;cheat searcher&amp;rdquo; which can be used to find interesting addresses in memory. It is similar to Cheat Engine. With that I found where the counter variable is stored in memory.&lt;/p>
 &lt;p>
 &lt;figure class="center" >
 &lt;img src="https://stelin41.github.io/img/Irony/bgb_cheat_searcher_1.png" style="border-radius: 8px;" />
