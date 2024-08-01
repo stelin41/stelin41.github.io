@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>stelin41</title>
+    <link>http://localhost:1313/en/en/</link>
+    <description>Recent content on stelin41</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 stelin41</copyright>
+    <lastBuildDate>Sun, 26 Jun 2022 13:49:13 +0200</lastBuildDate><atom:link href="http://localhost:1313/en/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Irony - CatTheQuest CTF 2024</title>
+      <link>http://localhost:1313/en/en/posts/irony_catthequest2024_ctf/</link>
+      <pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/en/en/posts/irony_catthequest2024_ctf/</guid>
+      <description>Title: Irony Category: Reverse Medium - 12 points Description:
+One of the hackers is a GameBoy fan. You might find a crucial element to trace them in this file that was lingering on the network.
+Hint:
+Use ghidra with gameboy plugin in order that can help your reverse engineer the game - Utilisez Ghidra avec le plugin Gameboy pour vous aider à faire de l ingénierie inverse du jeu.
+Flag example: CAT{Koi9_Koi9_E0_09876}</description>
+      <content>&lt;h2 id=&#34;title-irony&#34;&gt;Title: Irony&lt;/h2&gt;
+&lt;h3 id=&#34;category-reverse&#34;&gt;Category: Reverse&lt;/h3&gt;
+&lt;h3 id=&#34;medium---12-points&#34;&gt;Medium - 12 points&lt;/h3&gt;
+&lt;p&gt;Description:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;One of the hackers is a GameBoy fan. You might find a crucial element to trace them in this file that was lingering on the network.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hint:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Use ghidra with gameboy plugin in order that can help your reverse engineer the game - Utilisez Ghidra avec le plugin Gameboy pour vous aider à faire de l ingénierie inverse du jeu.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Flag example: &lt;code&gt;CAT{Koi9_Koi9_E0_09876}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Attachments: &lt;a href=&#34;https://cdn.cattheflag.org/irony.gb&#34;&gt;&lt;code&gt;irony.gb&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Challenge author: &lt;a href=&#34;https://www.youtube.com/channel/UCBudTXoJ6fJEcN5XBi2_xHw&#34;&gt;Ir0nByte&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This was a reverse engineering challenge where they provided a ROM for the GameBoy. 9 teams could solve it. It took me about two days to solve it. I usually don&amp;rsquo;t do reverse engineering challenges because they are time intensive, but this CTF lasted 5 days.&lt;/p&gt;
+&lt;h1 id=&#34;initial-analysis&#34;&gt;Initial analysis&lt;/h1&gt;
+&lt;p&gt;You can use any GameBoy emulator to run it. I used the &lt;a href=&#34;https://bgb.bircd.org/&#34;&gt;BGB emulator/debugger&lt;/a&gt;. If you play it, you will find this gardener.&lt;/p&gt;
+&lt;p&gt;
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/gardener_dialogue_1.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/gardener_dialogue_2.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/gardener_dialogue_3.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/counter_modify.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+&lt;/p&gt;
+&lt;p&gt;If you explore more, you will find another NPC that gives you a hint.&lt;/p&gt;
+&lt;p&gt;
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/npc_hint_1.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/npc_hint_2.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+&lt;/p&gt;
+&lt;p&gt;If you execute &lt;code&gt;strings irony.gb&lt;/code&gt; you can find this:&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/strings.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;&lt;code&gt;{Mew0_Mew0_G0_%d}&lt;/code&gt; looks like part of the flag, but it&amp;rsquo;s using string formatting. That means &lt;code&gt;%d&lt;/code&gt; will be replaced with a number. The real challenge is finding that number.&lt;/p&gt;
+&lt;h1 id=&#34;failed-attempts&#34;&gt;Failed attempts&lt;/h1&gt;
+&lt;p&gt;In the challenge description they added a hint that using this &lt;a href=&#34;https://github.com/Gekkio/GhidraBoy&#34;&gt;GameBoy extension for ghidra&lt;/a&gt; could be useful for doing static analysis, so I started from there. However, for me it wasn&amp;rsquo;t very helpful. It can&amp;rsquo;t find most of the functions in the ROM so you must find them manually, and the pseudocode generated misses most of the functionality.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/ghidra.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;I also looked for references to the address of the flag string, but ghidra found nothing.&lt;/p&gt;
+&lt;p&gt;BGB has a functionality called &amp;ldquo;cheat searcher&amp;rdquo; which can be used to find interesting addresses in memory. It is similar to Cheat Engine. With that I found where the counter variable is stored in memory.&lt;/p&gt;
+&lt;p&gt;
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/bgb_cheat_searcher_1.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/bgb_cheat_searcher_2.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+&lt;/p&gt;
+&lt;p&gt;There are three memory addresses where it is stored. You can see that at &lt;code&gt;CA50&lt;/code&gt; is it&amp;rsquo;s absolute value. &lt;code&gt;CBB5&lt;/code&gt; and &lt;code&gt;D915&lt;/code&gt; look like signed integers, but which is the real counter? BGB allows you to set up watchpoints to stop the code when something reads/writes/executes/jumps to an address. If you setup a write watchpoint at those addresses and begin to single-step through the code, sometimes &lt;code&gt;D915&lt;/code&gt; gets overwritten with other values that are not the counter. That indicates that it&amp;rsquo;s probably a function parameter. &lt;code&gt;CBB5&lt;/code&gt; is the real counter address.&lt;/p&gt;
+&lt;p&gt;My first idea was to set up a read watchpoint at &lt;code&gt;CBB5&lt;/code&gt;, and use trace i.e. single step until I stumble upon a conditional jump that used the current counter value. Here&amp;rsquo;s the &lt;a href=&#34;http://marc.rawer.de/Gameboy/Docs/GBCPUman.pdf&#34;&gt;gameboy CPU manual&lt;/a&gt; I used for reference.&lt;/p&gt;
+&lt;p&gt;However, I single-stepped for ages and couldn&amp;rsquo;t find it. When you talk with the gardener, the counter is reset to 0. For some reason, the gardener only reads it once, &lt;em&gt;after&lt;/em&gt; setting the counter to 0. Like, what?&lt;/p&gt;
+&lt;p&gt;I tried to do the same with &lt;code&gt;D915&lt;/code&gt; and I found nothing. Maybe I missed it, but I ended up trying other ideas.&lt;/p&gt;
+&lt;p&gt;I looked for the address in memory of the &lt;code&gt;I won&#39;t give the flag&lt;/code&gt; string, and set up a read watchpoint. With trace reverse I could single-step backwards. I wanted to eventually find something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; counter&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;secret:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;I won&amp;#39;t give the flag...&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;CAT&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{Mew0_Mew0_G0_&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}...&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; counter)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With time I realized that there is a loop that reads the previous bytes in sequence. While reading it, sometimes it jumps somewhere and does lots of things before coming back and continuing to read it, or used some of these values to calculate memory addresses to read/write at runtime.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/bytecode.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;I wouldn&amp;rsquo;t say that I&amp;rsquo;m good at reverse engineering, so this had me confused for a while. As you will see, I ended up realizing this is bytecode.&lt;/p&gt;
+&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
+&lt;p&gt;At some point I began wondering how the ROM was made. By searching different IDEs, I found this:&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/screenshot_mac_4_v4.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;That is one of the default sample projects in &lt;a href=&#34;https://www.gbstudio.dev/&#34;&gt;GB Studio&lt;/a&gt;. It is similar to the game provided, so I guessed that&amp;rsquo;s how it was made.
+Then, I used GB Studio to create different ROMs based on this default sample project, with very small changes to the code of the gardener.&lt;/p&gt;
+&lt;p&gt;The first ROM I made had this:&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/gb_studio.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;Then I compiled another ROM with only one small change:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;If $TurnipCounter == 23456&lt;/code&gt; to &lt;code&gt;If $TurnipCounter == 12345&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And compared the different ROMs with &lt;a href=&#34;https://www.sweetscape.com/010editor/&#34;&gt;010 editor&lt;/a&gt;&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/010_editor_custom_roms.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;39 30&lt;/code&gt; -&amp;gt; &lt;code&gt;0x3039&lt;/code&gt; -&amp;gt; &lt;code&gt;12345&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;A0 5B&lt;/code&gt; -&amp;gt; &lt;code&gt;0x5BA0&lt;/code&gt; -&amp;gt; &lt;code&gt;23456&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is interesting. The number is stored near the string. I compiled more ROMs with similar changes like:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;If $TurnipCounter == 12345&lt;/code&gt; to &lt;code&gt;If $TurnipCounter != 23456&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;If $TurnipCounter == 12345&lt;/code&gt; to &lt;code&gt;If $Seen Cat == 23456&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Please help me, there is $Turnip Counter left&lt;/code&gt; to &lt;code&gt;Please help me, there is $Seen Cat left&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By diffing them, and single-stepping more with BGB, I found all of this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Before the string, at &lt;code&gt;CA48&lt;/code&gt;, &lt;code&gt;0B&lt;/code&gt; is the ID of the variable that will replace &lt;code&gt;%d&lt;/code&gt; (in the original &lt;code&gt;irony.gb&lt;/code&gt; ROM, the variable ID used for both &lt;code&gt;Counter = %d&lt;/code&gt; and &lt;code&gt;CAT\n{Mew0_Mew0_G0_%d}...&lt;/code&gt; is &lt;code&gt;11&lt;/code&gt;, which confirms that the unknown number is replaced with the counter)&lt;/li&gt;
+&lt;li&gt;At &lt;code&gt;CA33&lt;/code&gt;, &lt;code&gt;0B&lt;/code&gt; is a reference to $Turnip Counter&lt;/li&gt;
+&lt;li&gt;At &lt;code&gt;CA38&lt;/code&gt; is the operation used (02 is &lt;code&gt;&amp;lt;&lt;/code&gt;, 01 is &lt;code&gt;==&lt;/code&gt;, 06 is &lt;code&gt;!=&lt;/code&gt;, 04 is &lt;code&gt;&amp;gt;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;At &lt;code&gt;CA36&lt;/code&gt;-&lt;code&gt;CA37&lt;/code&gt; is the number that it is comparing with&lt;/li&gt;
+&lt;li&gt;The NULL byte at the end of the string (at &lt;code&gt;CA13&lt;/code&gt;) indicates the end of the string&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;40&lt;/code&gt; at &lt;code&gt;CA46&lt;/code&gt; seems to indicate the beginning of the string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Please help me, there is %d left&lt;/code&gt; will be read if the condition is false&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Thank you so much!!&lt;/code&gt; and &lt;code&gt;I&#39;m not planting those next year&lt;/code&gt; will be read if the condition is true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That is how I slowly realized that I was looking at bytecode. I was really sure that the number is inside this section.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;http://localhost:1313/img/Irony/bytecode.png&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;I thought that the &lt;code&gt;11&lt;/code&gt; at &lt;code&gt;00A6&lt;/code&gt; might be a reference to the counter. I tried to set the counter value to some of the surrounding bytes, following the same little endian format as before and&amp;hellip; nothing. Weird.&lt;/p&gt;
+&lt;p&gt;I began questioning everything. Is this really a simple &lt;code&gt;==&lt;/code&gt; comparison? Why is it so different from the ROMs I made before? I want to understand what this bytecode is doing, but how?&lt;/p&gt;
+&lt;p&gt;I already found the address of the function that &amp;ldquo;interprets&amp;rdquo; these bytes, but it is quite big and it would take me forever to reverse. Diffing more ROMs could be a better option, but that would also take time. How else could we reverse engineer an undocumented bytecode interpreter?&lt;/p&gt;
+&lt;p&gt;Wait&amp;hellip; undocumented?&lt;/p&gt;
+&lt;p&gt;I searched for &amp;ldquo;gb studio bytecode&amp;rdquo; and found &lt;a href=&#34;https://www.gbstudio.dev/docs/scripting/gbvm/gbvm-operations/&#34;&gt;GBVM&lt;/a&gt;. I wasn&amp;rsquo;t sure if this is it, so I dug into the source code:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/chrismaltby/gbvm/blob/master/src/core/vm_instructions.c#L47&#34;&gt;https://github.com/chrismaltby/gbvm/blob/master/src/core/vm_instructions.c#L47&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/chrismaltby/gbvm/blob/master/src/core/vm.c#L200&#34;&gt;https://github.com/chrismaltby/gbvm/blob/master/src/core/vm.c#L200&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/chrismaltby/gbvm/blob/master/include/vm.h#L82&#34;&gt;https://github.com/chrismaltby/gbvm/blob/master/include/vm.h#L82&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// logical operators
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_EQ  1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_LT  2
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_LE  3
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_GT  4
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_GE  5
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_NE  6
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_AND 7
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_OR  8
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define VM_OP_NOT 9
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The values of &lt;code&gt;VM_OP_EQ&lt;/code&gt; &lt;code&gt;VM_OP_LT&lt;/code&gt; &lt;code&gt;VM_OP_GT&lt;/code&gt; &lt;code&gt;VM_OP_NE&lt;/code&gt; match with the ones I found before.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;At &lt;code&gt;CA38&lt;/code&gt; is the operation used (02 is &lt;code&gt;&amp;lt;&lt;/code&gt;, 01 is &lt;code&gt;==&lt;/code&gt;, 06 is &lt;code&gt;!=&lt;/code&gt;, 04 is &lt;code&gt;&amp;gt;&lt;/code&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// here we define all VM instructions: their handlers and parameter lengths in bytes
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// this array must be nonbanked as well as STEP_VM()
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// ...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;{vm_load_text, &lt;span style=&#34;color:#a6e22e&#34;&gt;BANK&lt;/span&gt;(VM_UI), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}, &lt;span style=&#34;color:#75715e&#34;&gt;// 0x40
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This also matches with my previous finding.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;code&gt;40&lt;/code&gt; at &lt;code&gt;CA46&lt;/code&gt; seems to indicate the beginning of the string&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This must be it! Now it is easy to manually decode the instructions.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;47 03 01 05 14 00 00 41 ff 00 44 07 01 45 fe 12 00 44 03 01 55 57 5e 0c 05 53 85 08 55 57 97 0c 06 53 86 04 1a 00 40 f3 78 2f 00 11 01
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To make sure I got the alignment correctly, I began decoding it from the start.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;47 vm_overlay_clear
+03 01 05 14 00 00
+41 vm_display_text
+ff 00 
+44 vm_overlay_wait
+07 01
+45 vm_overlay_move_to
+fe 12 00
+44 vm_overlay_wait
+03 01 
+55 vm_context_prepare
+57 5e 0c 05
+53 vm_input_attach
+85 08 
+55 vm_context_prepare
+57 97 0c 06
+53 vm_input_attach
+86 04
+1a vm_if_const
+00 40 f3 78 2f 00 11 01
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;vm_if_const&lt;/code&gt; is an if condition! Let&amp;rsquo;s decode it:
+&lt;code&gt;1a 00 40 f3 78 2f 00 11 01&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1a&lt;/code&gt; is vm_if_const&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;00&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;40 f3&lt;/code&gt; is the address of the &lt;code&gt;vm_load_text&lt;/code&gt; instruction for the flag string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;78 2f&lt;/code&gt; is the other number&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;00 11&lt;/code&gt; is the ID of the counter variable&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;01&lt;/code&gt; is an == comparison&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;78 2f&lt;/code&gt; is the missing number! Yay!&lt;/p&gt;
+&lt;p&gt;It turns out that it wasn&amp;rsquo;t little endian&amp;hellip; bruh. At least we got the flag :)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CAT{Mew0_Mew0_G0_30767}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Note: I didn&amp;rsquo;t mention other rabbit holes I fell into, like using ghidriff or checking the .sav files generated when you save the game, but they didn&amp;rsquo;t lead to anything worth mentioning.&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Fixing a macbook with a &#34;broken&#34; GPU</title>
+      <link>http://localhost:1313/en/en/posts/fixing_a_macbook/</link>
+      <pubDate>Tue, 28 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/en/en/posts/fixing_a_macbook/</guid>
+      <description>The issue One day, my grandma came to me with a macbook pro retina from 2012 and said, &amp;ldquo;When I turn it on, the display remains completly black. But If I hold the power button until it shuts down, and then I turn it on again, it works. They said the GPU is broken and it will cost 800 bucks to fix. It&amp;rsquo;s not worth it. I&amp;rsquo;ll buy a new MB instead.</description>
+      <content>&lt;h1 id=&#34;the-issue&#34;&gt;The issue&lt;/h1&gt;
+&lt;p&gt;One day, my grandma came to me with a macbook pro retina from 2012 and said, &amp;ldquo;When I turn it on, the display remains completly black. But If I hold the power button until it shuts down, and then I turn it on again, it works. They said the GPU is broken and it will cost 800 bucks to fix. It&amp;rsquo;s not worth it. I&amp;rsquo;ll buy a new MB instead. I&amp;rsquo;ll give you the old MBP and If you can fix it, it&amp;rsquo;s yours.&amp;rdquo; Challenge accepted.&lt;/p&gt;
+&lt;h1 id=&#34;diagnosis&#34;&gt;Diagnosis&lt;/h1&gt;
+&lt;p&gt;First of all I took a look at the symptoms. It didn&amp;rsquo;t make sense. If the GPU was the problem, it shouldn&amp;rsquo;t be able to output any image, ever. I first thought that the problem was caused by macOS. So I updated macOS to the newest version that was avalible. Guess what? It got worse. It was impossible to get rid of the black screen, even with the trick of forcing it to shut down. Crap.&lt;/p&gt;
+&lt;p&gt;Then I remembered that the System report showed only the iGPU&amp;hellip; what a dumb mistake. I googled the specs of this machine and it does have a dGPU. I ended up being convinced the hard way. The dGPU was broken. However, I wasn&amp;rsquo;t completly wrong, since macOS was trying to use a &amp;ldquo;phantom&amp;rdquo; dGPU instead of the iGPU. So I started looking for some way to permanently disable the dGPU.&lt;/p&gt;
+&lt;h1 id=&#34;temporal-fix&#34;&gt;Temporal fix&lt;/h1&gt;
+&lt;p&gt;I found &lt;a href=&#34;https://forums.macrumors.com/threads/force-2011-macbook-pro-8-2-with-failed-amd-gpu-to-always-use-intel-integrated-gpu-efi-variable-fix.2037591/&#34;&gt;this&lt;/a&gt; post, where the poster changed an EFI variable, which is in the NVRAM, to disable the dGPU. That is possible using the single user mode, or booting into an Arch Linux LiveUSB. But there was a problem, I wasn&amp;rsquo;t able to get into the single user mode, nor boot into Arch, because &lt;em&gt;all I had was a black screen&lt;/em&gt;. Then I had an idea. Since the bootloader looks for all the bootable devices, and will follow a pre-established order to decide where to boot into, I could remove the internal SSD in order to force the bootloader to boot into the LiveUSB. After doing that, I typed (with the screen still black):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; speaker-test
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then I heard a &lt;em&gt;Beeeeep&lt;/em&gt;. It worked!&lt;/p&gt;
+&lt;p&gt;Next, I got it&amp;rsquo;s IP address from the router&amp;rsquo;s network map, and used ssh to be able to see what I type. I put the SSD back, re-scanned all the disks, mounted the macOS partition, and I was ready to go! Finally, I ran the commands shown in the post, rebooted, and the screen was working again!&lt;/p&gt;
+&lt;p&gt;However, I didn&amp;rsquo;t even thought about &lt;em&gt;actually&lt;/em&gt; trying to fix the GPU, until much later, when I happened to find this video from Louis Rossmann.&lt;/p&gt;
+
+
+    
+    &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube-nocookie.com/embed/naXglCTEtLw?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;
+      &gt;&lt;/iframe&gt;
+    &lt;/div&gt;
+
+&lt;h1 id=&#34;final-fix&#34;&gt;Final fix&lt;/h1&gt;
+&lt;p&gt;So I reset the NVRAM and the screen was black again&amp;hellip; as expected. I downloaded the schematics, disassembled the laptop, turned it on, and began to measure some voltages with my polymeter. When I checked the voltage going to the screen I got 0 volts. Huh, no wonder why it wasn&amp;rsquo;t working. After, I measured the vcore (the voltage that is supplied to the dGPU), and I got 0 volts too! U8900 is the chip that manages these voltages, a.k.a. the power supply, wich apparently has cracked welds. It&amp;rsquo;s almost literally falling off the board. Why? Because that&amp;rsquo;s what Apple does! So with a bit of help I reinforced the welds, reassembled everything, and booted again. And wow, it worked!&lt;/p&gt;
+&lt;p&gt;Right now im writing this from the MBP using neovim! I&amp;rsquo;m really happy!&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>http://localhost:1313/en/en/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/en/en/contact/</guid>
+      <description>Greetings! I&amp;rsquo;m stelin41, a spanish student who loves learning how computers work. In my free time, I enjoy creating, modding, fixing and breaking technology. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so in the meantime, feel free to check out my Twitter or Mastodon accounts. You can contact me via email: &amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111; (at) &amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109; [ &amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111; (at) &amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109; ] </description>
+      <content>
+&lt;br&gt;
+
+  &lt;img src=&#34;http://localhost:1313/img/p4rrot_icon.png&#34;  alt=&#34;stelin41&amp;#39;s pfp&#34;  class=&#34;center&#34;  style=&#34;border-radius: 100%; height: 41%; width: 41%; box-shadow: 0px 0px 2mm 2mm #000A;&#34;  /&gt;
+
+
+
+
+&lt;br&gt;
+  &lt;div class=&#34;social-media-links&#34; style=&#34;display: flex; justify-content: center; gap: 4%;&#34;&gt;
+    &lt;a href=&#34;https://github.com/stelin41&#34;&gt;
+        &lt;image src=&#34;http://localhost:1313/img/Github.svg&#34; alt=&#34;GitHub&#34; position=&#34;center&#34; style=&#34;height: 24px; width: 24px; float: left; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);&#34; &gt;
+    &lt;/a&gt;
+    &lt;a href=&#34;https://twitter.com/stelin41&#34;&gt;
+        &lt;image src=&#34;http://localhost:1313/img/Twitter.svg&#34; alt=&#34;Twitter&#34; position=&#34;center&#34; style=&#34;height: 24px; width: 24px; float: left; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);&#34; &gt;
+    &lt;/a&gt;
+    &lt;a rel=&#34;me&#34; href=&#34;https://ioc.exchange/@stelin41&#34;&gt;
+        &lt;image src=&#34;http://localhost:1313/img/Mastodon.svg&#34; alt=&#34;Mastodon&#34; position=&#34;left&#34; style=&#34;height: 24px; width: 24px; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);&#34; &gt;
+    &lt;/a&gt;
+    &lt;a href=&#34;https://youtube.com/@stelin41&#34;&gt;
+        &lt;image src=&#34;http://localhost:1313/img/YouTube.svg&#34; alt=&#34;envelope&#34; position=&#34;left&#34; style=&#34;height: 24px; width: 24px; display: flex; filter: invert(99%) sepia(26%) saturate(92%) hue-rotate(223deg) brightness(115%) contrast(100%);&#34; &gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;br&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Greetings! I&amp;rsquo;m stelin41, a spanish student who loves learning how computers work. In my free time, I enjoy creating, modding, fixing and breaking technology. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so in the meantime, feel free to check out my &lt;a href=&#34;https://twitter.com/stelin41&#34;&gt;&lt;strong&gt;Twitter&lt;/strong&gt;&lt;/a&gt; or &lt;a href=&#34;https://ioc.exchange/@stelin41&#34;&gt;&lt;strong&gt;Mastodon&lt;/strong&gt;&lt;/a&gt; accounts. You can contact me via email: 
+
+&lt;!-- Begin Email Cloaking --&gt;
+&lt;script language=&#39;javascript&#39; type=&#39;text/javascript&#39;&gt;&lt;!--
+//
+// Anti-Spam Email Cloaking 3.0 by David Tulga
+// https://www.davidtulga.com/antispamemail.htm
+//
+x = &#39;&amp;#64;&#39;;
+eml = &#39;&amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111;&#39; + x + &#39;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&#39;;
+msg = &#39;&amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111;&#39; + x + &#39;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&#39;;
+out = &#39;&lt;a class=&#34;davidtulga_cloak_eml&#34; href=&#34;mailto:&#39; + eml + &#39;&#34;&gt;&#39; + msg + &#39;&lt;/a&gt;&#39;;
+document.write(out);
+// --&gt;
+&lt;/script&gt;
+&lt;noscript&gt;
+&lt;!-- This message is displayed if the browser has javascript disabled. --&gt;
+&amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111; (at) &amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109; [ &amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111; (at) &amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109; ] 
+&lt;/noscript&gt;
+&lt;!-- End Email Cloaking --&gt;
+&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

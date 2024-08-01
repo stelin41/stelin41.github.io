@@ -203,7 +203,7 @@ fe 12 00
 &lt;/div>
 &lt;h1 id="final-fix">Final fix&lt;/h1>
 &lt;p>So I reset the NVRAM and the screen was black again&amp;hellip; as expected. I downloaded the schematics, disassembled the laptop, turned it on, and began to measure some voltages with my polymeter. When I checked the voltage going to the screen I got 0 volts. Huh, no wonder why it wasn&amp;rsquo;t working. After, I measured the vcore (the voltage that is supplied to the dGPU), and I got 0 volts too! U8900 is the chip that manages these voltages, a.k.a. the power supply, wich apparently has cracked welds. It&amp;rsquo;s almost literally falling off the board. Why? Because that&amp;rsquo;s what Apple does! So with a bit of help I reinforced the welds, reassembled everything, and booted again. And wow, it worked!&lt;/p>
-&lt;p>Right now im writing this from the MBP using neovim! I&amp;rsquo;m really happy!&lt;/p></content></item><item><title>Contact</title><link>https://stelin41.github.io/en/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stelin41.github.io/en/contact/</guid><description>Greetings! I&amp;rsquo;m stelin41, a spanish student who loves learning how computers work. In my free time, I enjoy creating, modding, fixing and breaking technology. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so in the meantime, feel free to check out my Twitter or Mastodon accounts. You can contact me via email: stelin41[dot]crypto[at]gmail[dot]com</description><content>
+&lt;p>Right now im writing this from the MBP using neovim! I&amp;rsquo;m really happy!&lt;/p></content></item><item><title>Contact</title><link>https://stelin41.github.io/en/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stelin41.github.io/en/contact/</guid><description>Greetings! I&amp;rsquo;m stelin41, a spanish student who loves learning how computers work. In my free time, I enjoy creating, modding, fixing and breaking technology. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so in the meantime check out my Twitter or Mastodon accounts. You can contact me via email: ' + msg + ''; document.</description><content>
 &lt;br>
 &lt;img src="https://stelin41.github.io/img/p4rrot_icon.png" alt="stelin41&amp;#39;s pfp" class="center" style="border-radius: 100%; height: 41%; width: 41%; box-shadow: 0px 0px 2mm 2mm #000A;" />
 &lt;br>
@@ -223,5 +223,24 @@ fe 12 00
 &lt;/div>
 &lt;br>
 &lt;blockquote>
-&lt;p>Greetings! I&amp;rsquo;m stelin41, a spanish student who loves learning how computers work. In my free time, I enjoy creating, modding, fixing and breaking technology. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so in the meantime, feel free to check out my &lt;a href="https://twitter.com/stelin41">&lt;strong>Twitter&lt;/strong>&lt;/a> or &lt;a href="https://ioc.exchange/@stelin41">&lt;strong>Mastodon&lt;/strong>&lt;/a> accounts. You can contact me via email: stelin41[dot]crypto[at]gmail[dot]com&lt;/p>
+&lt;p>Greetings! I&amp;rsquo;m stelin41, a spanish student who loves learning how computers work. In my free time, I enjoy creating, modding, fixing and breaking technology. Here you can read about some things I did that I think might be interesting. My blog is a bit empty right now, so in the meantime check out my &lt;a href="https://twitter.com/stelin41">&lt;strong>Twitter&lt;/strong>&lt;/a> or &lt;a href="https://ioc.exchange/@stelin41">&lt;strong>Mastodon&lt;/strong>&lt;/a> accounts. You can contact me via email:
+&lt;!-- Begin Email Cloaking -->
+&lt;script language='javascript' type='text/javascript'>&lt;!--
+//
+// Anti-Spam Email Cloaking 3.0 by David Tulga
+// https://www.davidtulga.com/antispamemail.htm
+//
+x = '&amp;#64;';
+eml = '&amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111;' + x + '&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109;';
+msg = '&amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111;' + x + '&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109;';
+out = '&lt;a class="davidtulga_cloak_eml" href="mailto:' + eml + '">' + msg + '&lt;/a>';
+document.write(out);
+// -->
+&lt;/script>
+&lt;noscript>
+&lt;!-- This message is displayed if the browser has javascript disabled. -->
+&amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111; (at) &amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109; [ &amp;#115;&amp;#116;&amp;#101;&amp;#108;&amp;#105;&amp;#110;&amp;#52;&amp;#49;&amp;#46;&amp;#99;&amp;#114;&amp;#121;&amp;#112;&amp;#116;&amp;#111; (at) &amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#109; ]
+&lt;/noscript>
+&lt;!-- End Email Cloaking -->
+&lt;/p>
 &lt;/blockquote></content></item></channel></rss>
