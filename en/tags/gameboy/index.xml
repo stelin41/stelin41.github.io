@@ -1,160 +1,168 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>gameboy on stelin41</title><link>https://stelin41.github.io/en/tags/gameboy/</link><description>Recent content in gameboy on stelin41</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>© 2025 stelin41</copyright><lastBuildDate>Fri, 19 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://stelin41.github.io/en/tags/gameboy/index.xml" rel="self" type="application/rss+xml"/><item><title>Irony - CatTheQuest CTF 2024</title><link>https://stelin41.github.io/en/posts/irony_catthequest2024_ctf/</link><pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate><guid>https://stelin41.github.io/en/posts/irony_catthequest2024_ctf/</guid><description>Title: Irony Category: Reverse Medium - 12 points Description:
-One of the hackers is a GameBoy fan. You might find a crucial element to trace them in this file that was lingering on the network.
-Hint:
-Use ghidra with gameboy plugin in order that can help your reverse engineer the game - Utilisez Ghidra avec le plugin Gameboy pour vous aider à faire de l ingénierie inverse du jeu.</description><content>&lt;h2 id="title-irony">Title: Irony&lt;/h2>
-&lt;h3 id="category-reverse">Category: Reverse&lt;/h3>
-&lt;h3 id="medium---12-points">Medium - 12 points&lt;/h3>
-&lt;p>Description:&lt;/p>
-&lt;blockquote>
-&lt;p>One of the hackers is a GameBoy fan. You might find a crucial element to trace them in this file that was lingering on the network.&lt;/p>
-&lt;/blockquote>
-&lt;p>Hint:&lt;/p>
-&lt;blockquote>
-&lt;p>Use ghidra with gameboy plugin in order that can help your reverse engineer the game - Utilisez Ghidra avec le plugin Gameboy pour vous aider à faire de l ingénierie inverse du jeu.&lt;/p>
-&lt;/blockquote>
-&lt;p>Flag example: &lt;code>CAT{Koi9_Koi9_E0_09876}&lt;/code>&lt;/p>
-&lt;p>Attachments: &lt;a href="https://cdn.cattheflag.org/irony.gb">&lt;code>irony.gb&lt;/code>&lt;/a>&lt;/p>
-&lt;p>Challenge author: &lt;a href="https://www.youtube.com/channel/UCBudTXoJ6fJEcN5XBi2_xHw">Ir0nByte&lt;/a>&lt;/p>
-&lt;p>This was a reverse engineering challenge where they provided a ROM for the GameBoy. 9 teams could solve it. It took me about two days to solve it. I usually don&amp;rsquo;t do reverse engineering challenges because they are time intensive, but this CTF lasted 5 days.&lt;/p>
-&lt;h1 id="initial-analysis">Initial analysis&lt;/h1>
-&lt;p>You can use any GameBoy emulator to run it. I used the &lt;a href="https://bgb.bircd.org/">BGB emulator/debugger&lt;/a>. If you play it, you will find this gardener.&lt;/p>
-&lt;p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/gardener_dialogue_1.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/gardener_dialogue_2.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/gardener_dialogue_3.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/counter_modify.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;/p>
-&lt;p>If you explore more, you will find another NPC that gives you a hint.&lt;/p>
-&lt;p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/npc_hint_1.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/npc_hint_2.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;/p>
-&lt;p>If you execute &lt;code>strings irony.gb&lt;/code> you can find this:&lt;/p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/strings.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;p>&lt;code>{Mew0_Mew0_G0_%d}&lt;/code> looks like part of the flag, but it&amp;rsquo;s using string formatting. That means &lt;code>%d&lt;/code> will be replaced with a number. The real challenge is finding that number.&lt;/p>
-&lt;h1 id="failed-attempts">Failed attempts&lt;/h1>
-&lt;p>In the challenge description they added a hint that using this &lt;a href="https://github.com/Gekkio/GhidraBoy">GameBoy extension for ghidra&lt;/a> could be useful for doing static analysis, so I started from there. However, for me it wasn&amp;rsquo;t very helpful. It can&amp;rsquo;t find most of the functions in the ROM so you must find them manually, and the pseudocode generated misses most of the functionality.&lt;/p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/ghidra.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;p>I also looked for references to the address of the flag string, but ghidra found nothing.&lt;/p>
-&lt;p>BGB has a functionality called &amp;ldquo;cheat searcher&amp;rdquo; which can be used to find interesting addresses in memory. It is similar to Cheat Engine. With that I found where the counter variable is stored in memory.&lt;/p>
-&lt;p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/bgb_cheat_searcher_1.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/bgb_cheat_searcher_2.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;/p>
-&lt;p>There are three memory addresses where it is stored. You can see that at &lt;code>CA50&lt;/code> is it&amp;rsquo;s absolute value. &lt;code>CBB5&lt;/code> and &lt;code>D915&lt;/code> look like signed integers, but which is the real counter? BGB allows you to set up watchpoints to stop the code when something reads/writes/executes/jumps to an address. If you setup a write watchpoint at those addresses and begin to single-step through the code, sometimes &lt;code>D915&lt;/code> gets overwritten with other values that are not the counter. That indicates that it&amp;rsquo;s probably a function parameter. &lt;code>CBB5&lt;/code> is the real counter address.&lt;/p>
-&lt;p>My first idea was to set up a read watchpoint at &lt;code>CBB5&lt;/code>, and use trace i.e. single step until I stumble upon a conditional jump that used the current counter value. Here&amp;rsquo;s the &lt;a href="http://marc.rawer.de/Gameboy/Docs/GBCPUman.pdf">gameboy CPU manual&lt;/a> I used for reference.&lt;/p>
-&lt;p>However, I single-stepped for ages and couldn&amp;rsquo;t find it. When you talk with the gardener, the counter is reset to 0. For some reason, the gardener only reads it once, &lt;em>after&lt;/em> setting the counter to 0. Like, what?&lt;/p>
-&lt;p>I tried to do the same with &lt;code>D915&lt;/code> and I found nothing. Maybe I missed it, but I ended up trying other ideas.&lt;/p>
-&lt;p>I looked for the address in memory of the &lt;code>I won't give the flag&lt;/code> string, and set up a read watchpoint. With trace reverse I could single-step backwards. I wanted to eventually find something like this:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">if&lt;/span> counter&lt;span style="color:#f92672">==&lt;/span>secret:
-&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;I won&amp;#39;t give the flag...&amp;#34;&lt;/span>)
-&lt;span style="color:#66d9ef">else&lt;/span>:
-&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;CAT&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">{Mew0_Mew0_G0_&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">}...&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> counter)
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>With time I realized that there is a loop that reads the previous bytes in sequence. While reading it, sometimes it jumps somewhere and does lots of things before coming back and continuing to read it, or used some of these values to calculate memory addresses to read/write at runtime.&lt;/p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/bytecode.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;p>I wouldn&amp;rsquo;t say that I&amp;rsquo;m good at reverse engineering, so this had me confused for a while. As you will see, I ended up realizing this is bytecode.&lt;/p>
-&lt;h1 id="solution">Solution&lt;/h1>
-&lt;p>At some point I began wondering how the ROM was made. By searching different IDEs, I found this:&lt;/p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/screenshot_mac_4_v4.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;p>That is one of the default sample projects in &lt;a href="https://www.gbstudio.dev/">GB Studio&lt;/a>. It is similar to the game provided, so I guessed that&amp;rsquo;s how it was made.
-Then, I used GB Studio to create different ROMs based on this default sample project, with very small changes to the code of the gardener.&lt;/p>
-&lt;p>The first ROM I made had this:&lt;/p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/gb_studio.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;p>Then I compiled another ROM with only one small change:&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>If $TurnipCounter == 23456&lt;/code> to &lt;code>If $TurnipCounter == 12345&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>And compared the different ROMs with &lt;a href="https://www.sweetscape.com/010editor/">010 editor&lt;/a>&lt;/p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/010_editor_custom_roms.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;ul>
-&lt;li>&lt;code>39 30&lt;/code> -&amp;gt; &lt;code>0x3039&lt;/code> -&amp;gt; &lt;code>12345&lt;/code>&lt;/li>
-&lt;li>&lt;code>A0 5B&lt;/code> -&amp;gt; &lt;code>0x5BA0&lt;/code> -&amp;gt; &lt;code>23456&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>This is interesting. The number is stored near the string. I compiled more ROMs with similar changes like:&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>If $TurnipCounter == 12345&lt;/code> to &lt;code>If $TurnipCounter != 23456&lt;/code>&lt;/li>
-&lt;li>&lt;code>If $TurnipCounter == 12345&lt;/code> to &lt;code>If $Seen Cat == 23456&lt;/code>&lt;/li>
-&lt;li>&lt;code>Please help me, there is $Turnip Counter left&lt;/code> to &lt;code>Please help me, there is $Seen Cat left&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>By diffing them, and single-stepping more with BGB, I found all of this:&lt;/p>
-&lt;ul>
-&lt;li>Before the string, at &lt;code>CA48&lt;/code>, &lt;code>0B&lt;/code> is the ID of the variable that will replace &lt;code>%d&lt;/code> (in the original &lt;code>irony.gb&lt;/code> ROM, the variable ID used for both &lt;code>Counter = %d&lt;/code> and &lt;code>CAT\n{Mew0_Mew0_G0_%d}...&lt;/code> is &lt;code>11&lt;/code>, which confirms that the unknown number is replaced with the counter)&lt;/li>
-&lt;li>At &lt;code>CA33&lt;/code>, &lt;code>0B&lt;/code> is a reference to $Turnip Counter&lt;/li>
-&lt;li>At &lt;code>CA38&lt;/code> is the operation used (02 is &lt;code>&amp;lt;&lt;/code>, 01 is &lt;code>==&lt;/code>, 06 is &lt;code>!=&lt;/code>, 04 is &lt;code>&amp;gt;&lt;/code>)&lt;/li>
-&lt;li>At &lt;code>CA36&lt;/code>-&lt;code>CA37&lt;/code> is the number that it is comparing with&lt;/li>
-&lt;li>The NULL byte at the end of the string (at &lt;code>CA13&lt;/code>) indicates the end of the string&lt;/li>
-&lt;li>The &lt;code>40&lt;/code> at &lt;code>CA46&lt;/code> seems to indicate the beginning of the string&lt;/li>
-&lt;li>&lt;code>Please help me, there is %d left&lt;/code> will be read if the condition is false&lt;/li>
-&lt;li>&lt;code>Thank you so much!!&lt;/code> and &lt;code>I'm not planting those next year&lt;/code> will be read if the condition is true&lt;/li>
-&lt;/ul>
-&lt;p>That is how I slowly realized that I was looking at bytecode. I was really sure that the number is inside this section.&lt;/p>
-&lt;figure class="center" >
-&lt;img src="https://stelin41.github.io/img/Irony/bytecode.png" style="border-radius: 8px;" />
-&lt;/figure>
-&lt;p>I thought that the &lt;code>11&lt;/code> at &lt;code>00A6&lt;/code> might be a reference to the counter. I tried to set the counter value to some of the surrounding bytes, following the same little endian format as before and&amp;hellip; nothing. Weird.&lt;/p>
-&lt;p>I began questioning everything. Is this really a simple &lt;code>==&lt;/code> comparison? Why is it so different from the ROMs I made before? I want to understand what this bytecode is doing, but how?&lt;/p>
-&lt;p>I already found the address of the function that &amp;ldquo;interprets&amp;rdquo; these bytes, but it is quite big and it would take me forever to reverse. Diffing more ROMs could be a better option, but that would also take time. How else could we reverse engineer an undocumented bytecode interpreter?&lt;/p>
-&lt;p>Wait&amp;hellip; undocumented?&lt;/p>
-&lt;p>I searched for &amp;ldquo;gb studio bytecode&amp;rdquo; and found &lt;a href="https://www.gbstudio.dev/docs/scripting/gbvm/gbvm-operations/">GBVM&lt;/a>. I wasn&amp;rsquo;t sure if this is it, so I dug into the source code:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/chrismaltby/gbvm/blob/master/src/core/vm_instructions.c#L47">https://github.com/chrismaltby/gbvm/blob/master/src/core/vm_instructions.c#L47&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/chrismaltby/gbvm/blob/master/src/core/vm.c#L200">https://github.com/chrismaltby/gbvm/blob/master/src/core/vm.c#L200&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/chrismaltby/gbvm/blob/master/include/vm.h#L82">https://github.com/chrismaltby/gbvm/blob/master/include/vm.h#L82&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-c" data-lang="c">&lt;span style="color:#75715e">// logical operators
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#75715e">#define VM_OP_EQ 1
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_LT 2
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_LE 3
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_GT 4
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_GE 5
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_NE 6
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_AND 7
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_OR 8
-&lt;/span>&lt;span style="color:#75715e">#define VM_OP_NOT 9
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The values of &lt;code>VM_OP_EQ&lt;/code> &lt;code>VM_OP_LT&lt;/code> &lt;code>VM_OP_GT&lt;/code> &lt;code>VM_OP_NE&lt;/code> match with the ones I found before.&lt;/p>
-&lt;blockquote>
-&lt;p>At &lt;code>CA38&lt;/code> is the operation used (02 is &lt;code>&amp;lt;&lt;/code>, 01 is &lt;code>==&lt;/code>, 06 is &lt;code>!=&lt;/code>, 04 is &lt;code>&amp;gt;&lt;/code>)&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-c" data-lang="c">&lt;span style="color:#75715e">// here we define all VM instructions: their handlers and parameter lengths in bytes
-&lt;/span>&lt;span style="color:#75715e">// this array must be nonbanked as well as STEP_VM()
-&lt;/span>&lt;span style="color:#75715e">// ...
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>{vm_load_text, BANK(VM_UI), &lt;span style="color:#ae81ff">1&lt;/span>}, &lt;span style="color:#75715e">// 0x40
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This also matches with my previous finding.&lt;/p>
-&lt;blockquote>
-&lt;p>The &lt;code>40&lt;/code> at &lt;code>CA46&lt;/code> seems to indicate the beginning of the string&lt;/p>
-&lt;/blockquote>
-&lt;p>This must be it! Now it is easy to manually decode the instructions.&lt;/p>
-&lt;pre>&lt;code>47 03 01 05 14 00 00 41 ff 00 44 07 01 45 fe 12 00 44 03 01 55 57 5e 0c 05 53 85 08 55 57 97 0c 06 53 86 04 1a 00 40 f3 78 2f 00 11 01
-&lt;/code>&lt;/pre>&lt;p>To make sure I got the alignment correctly, I began decoding it from the start.&lt;/p>
-&lt;pre>&lt;code>47 vm_overlay_clear
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gameboy on stelin41</title><link>https://stelin41.github.io/en/tags/gameboy/</link><description>Recent content in Gameboy on stelin41</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stelin41.crypto@gmail.com (stelin41)</managingEditor><webMaster>stelin41.crypto@gmail.com (stelin41)</webMaster><copyright>© 2025 stelin41</copyright><lastBuildDate>Fri, 19 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://stelin41.github.io/en/tags/gameboy/index.xml" rel="self" type="application/rss+xml"/><item><title>Irony - CatTheQuest CTF 2024</title><link>https://stelin41.github.io/en/posts/irony_catthequest2024_ctf/</link><pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate><author>stelin41.crypto@gmail.com (stelin41)</author><guid>https://stelin41.github.io/en/posts/irony_catthequest2024_ctf/</guid><description>&lt;h2 id="title-irony"&gt;Title: Irony&lt;/h2&gt;
+&lt;h3 id="category-reverse"&gt;Category: Reverse&lt;/h3&gt;
+&lt;h3 id="medium---12-points"&gt;Medium - 12 points&lt;/h3&gt;
+&lt;p&gt;Description:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;One of the hackers is a GameBoy fan. You might find a crucial element to trace them in this file that was lingering on the network.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hint:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Use ghidra with gameboy plugin in order that can help your reverse engineer the game - Utilisez Ghidra avec le plugin Gameboy pour vous aider à faire de l ingénierie inverse du jeu.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Flag example: &lt;code&gt;CAT{Koi9_Koi9_E0_09876}&lt;/code&gt;&lt;/p&gt;</description><content>&lt;h2 id="title-irony"&gt;Title: Irony&lt;/h2&gt;
+&lt;h3 id="category-reverse"&gt;Category: Reverse&lt;/h3&gt;
+&lt;h3 id="medium---12-points"&gt;Medium - 12 points&lt;/h3&gt;
+&lt;p&gt;Description:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;One of the hackers is a GameBoy fan. You might find a crucial element to trace them in this file that was lingering on the network.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hint:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Use ghidra with gameboy plugin in order that can help your reverse engineer the game - Utilisez Ghidra avec le plugin Gameboy pour vous aider à faire de l ingénierie inverse du jeu.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Flag example: &lt;code&gt;CAT{Koi9_Koi9_E0_09876}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Attachments: &lt;a href="https://cdn.cattheflag.org/irony.gb"&gt;&lt;code&gt;irony.gb&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Challenge author: &lt;a href="https://www.youtube.com/channel/UCBudTXoJ6fJEcN5XBi2_xHw"&gt;Ir0nByte&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This was a reverse engineering challenge where they provided a ROM for the GameBoy. It took me about two days to solve it, and in the end 9 out of ~300 teams could solve it. I usually don&amp;rsquo;t do reverse engineering challenges because they are time intensive, but this CTF lasted 5 days.&lt;/p&gt;
+&lt;h1 id="initial-analysis"&gt;Initial analysis&lt;/h1&gt;
+&lt;p&gt;You can use any GameBoy emulator to run it. I used the &lt;a href="https://bgb.bircd.org/"&gt;BGB emulator/debugger&lt;/a&gt;. If you play it, you will find this gardener.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/gardener_dialogue_1.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/gardener_dialogue_2.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/gardener_dialogue_3.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/counter_modify.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;If you explore more, you will find another NPC that gives you a hint.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/npc_hint_1.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/npc_hint_2.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;If you execute &lt;code&gt;strings irony.gb&lt;/code&gt; you can find this:&lt;/p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/strings.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;{Mew0_Mew0_G0_%d}&lt;/code&gt; looks like part of the flag, but it&amp;rsquo;s using string formatting. That means &lt;code&gt;%d&lt;/code&gt; will be replaced with a number. The real challenge is finding that number.&lt;/p&gt;
+&lt;h1 id="failed-attempts"&gt;Failed attempts&lt;/h1&gt;
+&lt;p&gt;In the challenge description they added a hint that using this &lt;a href="https://github.com/Gekkio/GhidraBoy"&gt;GameBoy extension for ghidra&lt;/a&gt; could be useful for doing static analysis, so I started from there. However, for me it wasn&amp;rsquo;t very helpful. It can&amp;rsquo;t find most of the functions in the ROM so you must find them manually, and the pseudocode generated misses most of the functionality.&lt;/p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/ghidra.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;p&gt;I also looked for references to the address of the flag string, but ghidra found nothing.&lt;/p&gt;
+&lt;p&gt;BGB has a functionality called &amp;ldquo;cheat searcher&amp;rdquo; which can be used to find interesting addresses in memory. It is similar to Cheat Engine. With that I found where the counter variable is stored in memory.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/bgb_cheat_searcher_1.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/bgb_cheat_searcher_2.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;There are three memory addresses where it is stored. You can see that at &lt;code&gt;CA50&lt;/code&gt; is it&amp;rsquo;s absolute value. &lt;code&gt;CBB5&lt;/code&gt; and &lt;code&gt;D915&lt;/code&gt; look like signed integers, but which is the real counter? BGB allows you to set up watchpoints to stop the code when something reads/writes/executes/jumps to an address. If you setup a write watchpoint at those addresses and begin to single-step through the code, sometimes &lt;code&gt;D915&lt;/code&gt; gets overwritten with other values that are not the counter. That indicates that it&amp;rsquo;s probably a function parameter. &lt;code&gt;CBB5&lt;/code&gt; is the real counter address.&lt;/p&gt;
+&lt;p&gt;My first idea was to set up a read watchpoint at &lt;code&gt;CBB5&lt;/code&gt;, and use trace i.e. single step until I stumble upon a conditional jump that used the current counter value. Here&amp;rsquo;s the &lt;a href="http://marc.rawer.de/Gameboy/Docs/GBCPUman.pdf"&gt;gameboy CPU manual&lt;/a&gt; I used for reference.&lt;/p&gt;
+&lt;p&gt;However, I single-stepped for ages and couldn&amp;rsquo;t find it. When you talk with the gardener, the counter is reset to 0. For some reason, the gardener only reads it once, &lt;em&gt;after&lt;/em&gt; setting the counter to 0. Like, what?&lt;/p&gt;
+&lt;p&gt;I tried to do the same with &lt;code&gt;D915&lt;/code&gt; and I found nothing. Maybe I missed it, but I ended up trying other ideas.&lt;/p&gt;
+&lt;p&gt;I looked for the address in memory of the &lt;code&gt;I won't give the flag&lt;/code&gt; string, and set up a read watchpoint. With trace reverse I could single-step backwards. I wanted to eventually find something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; counter&lt;span style="color:#f92672"&gt;==&lt;/span&gt;secret:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(&lt;span style="color:#e6db74"&gt;&amp;#34;I won&amp;#39;t give the flag...&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(&lt;span style="color:#e6db74"&gt;&amp;#34;CAT&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;{Mew0_Mew0_G0_&lt;/span&gt;&lt;span style="color:#e6db74"&gt;%d&lt;/span&gt;&lt;span style="color:#e6db74"&gt;}...&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;%&lt;/span&gt; counter)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With time I realized that there is a loop that reads the previous bytes in sequence. While reading it, sometimes it jumps somewhere and does lots of things before coming back and continuing to read it, or used some of these values to calculate memory addresses to read/write at runtime.&lt;/p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/bytecode.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;p&gt;I wouldn&amp;rsquo;t say that I&amp;rsquo;m good at reverse engineering, so this had me confused for a while. As you will see, I ended up realizing this is bytecode.&lt;/p&gt;
+&lt;h1 id="solution"&gt;Solution&lt;/h1&gt;
+&lt;p&gt;At some point I began wondering how the ROM was made. By searching different IDEs, I found this:&lt;/p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/screenshot_mac_4_v4.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;p&gt;That is one of the default sample projects in &lt;a href="https://www.gbstudio.dev/"&gt;GB Studio&lt;/a&gt;. It is similar to the game provided, so I guessed that&amp;rsquo;s how it was made.
+Then, I used GB Studio to create different ROMs based on this default sample project, with very small changes to the code of the gardener.&lt;/p&gt;
+&lt;p&gt;The first ROM I made had this:&lt;/p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/gb_studio.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;p&gt;Then I compiled another ROM with only one small change:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;If $TurnipCounter == 23456&lt;/code&gt; to &lt;code&gt;If $TurnipCounter == 12345&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And compared the different ROMs with &lt;a href="https://www.sweetscape.com/010editor/"&gt;010 editor&lt;/a&gt;&lt;/p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/010_editor_custom_roms.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;39 30&lt;/code&gt; -&amp;gt; &lt;code&gt;0x3039&lt;/code&gt; -&amp;gt; &lt;code&gt;12345&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;A0 5B&lt;/code&gt; -&amp;gt; &lt;code&gt;0x5BA0&lt;/code&gt; -&amp;gt; &lt;code&gt;23456&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is interesting. The number is stored near the string. I compiled more ROMs with similar changes like:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;If $TurnipCounter == 12345&lt;/code&gt; to &lt;code&gt;If $TurnipCounter != 23456&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;If $TurnipCounter == 12345&lt;/code&gt; to &lt;code&gt;If $Seen Cat == 23456&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Please help me, there is $Turnip Counter left&lt;/code&gt; to &lt;code&gt;Please help me, there is $Seen Cat left&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By diffing them, and single-stepping more with BGB, I found all of this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Before the string, at &lt;code&gt;CA48&lt;/code&gt;, &lt;code&gt;0B&lt;/code&gt; is the ID of the variable that will replace &lt;code&gt;%d&lt;/code&gt; (in the original &lt;code&gt;irony.gb&lt;/code&gt; ROM, the variable ID used for both &lt;code&gt;Counter = %d&lt;/code&gt; and &lt;code&gt;CAT\n{Mew0_Mew0_G0_%d}...&lt;/code&gt; is &lt;code&gt;11&lt;/code&gt;, which confirms that the unknown number is replaced with the counter)&lt;/li&gt;
+&lt;li&gt;At &lt;code&gt;CA33&lt;/code&gt;, &lt;code&gt;0B&lt;/code&gt; is a reference to $Turnip Counter&lt;/li&gt;
+&lt;li&gt;At &lt;code&gt;CA38&lt;/code&gt; is the operation used (02 is &lt;code&gt;&amp;lt;&lt;/code&gt;, 01 is &lt;code&gt;==&lt;/code&gt;, 06 is &lt;code&gt;!=&lt;/code&gt;, 04 is &lt;code&gt;&amp;gt;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;At &lt;code&gt;CA36&lt;/code&gt;-&lt;code&gt;CA37&lt;/code&gt; is the number that it is comparing with&lt;/li&gt;
+&lt;li&gt;The NULL byte at the end of the string (at &lt;code&gt;CA13&lt;/code&gt;) indicates the end of the string&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;40&lt;/code&gt; at &lt;code&gt;CA46&lt;/code&gt; seems to indicate the beginning of the string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Please help me, there is %d left&lt;/code&gt; will be read if the condition is false&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Thank you so much!!&lt;/code&gt; and &lt;code&gt;I'm not planting those next year&lt;/code&gt; will be read if the condition is true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That is how I slowly realized that I was looking at bytecode. I was really sure that the number is inside this section.&lt;/p&gt;
+&lt;figure class="center" &gt;
+&lt;img src="https://stelin41.github.io/img/Irony/bytecode.png" style="border-radius: 8px;" /&gt;
+&lt;/figure&gt;
+&lt;p&gt;I thought that the &lt;code&gt;11&lt;/code&gt; at &lt;code&gt;00A6&lt;/code&gt; might be a reference to the counter. I tried to set the counter value to some of the surrounding bytes, following the same little endian format as before and&amp;hellip; nothing. Weird.&lt;/p&gt;
+&lt;p&gt;I began questioning everything. Is this really a simple &lt;code&gt;==&lt;/code&gt; comparison? Why is it so different from the ROMs I made before? I want to understand what this bytecode is doing, but how?&lt;/p&gt;
+&lt;p&gt;I already found the address of the function that &amp;ldquo;interprets&amp;rdquo; these bytes, but it is quite big and it would take me forever to reverse. Diffing more ROMs could be a better option, but that would also take time. How else could we reverse engineer an undocumented bytecode interpreter?&lt;/p&gt;
+&lt;p&gt;Wait&amp;hellip; undocumented?&lt;/p&gt;
+&lt;p&gt;I searched for &amp;ldquo;gb studio bytecode&amp;rdquo; and found &lt;a href="https://www.gbstudio.dev/docs/scripting/gbvm/gbvm-operations/"&gt;GBVM&lt;/a&gt;. I wasn&amp;rsquo;t sure if this is it, so I dug into the source code:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/chrismaltby/gbvm/blob/master/src/core/vm_instructions.c#L47"&gt;https://github.com/chrismaltby/gbvm/blob/master/src/core/vm_instructions.c#L47&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/chrismaltby/gbvm/blob/master/src/core/vm.c#L200"&gt;https://github.com/chrismaltby/gbvm/blob/master/src/core/vm.c#L200&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/chrismaltby/gbvm/blob/master/include/vm.h#L82"&gt;https://github.com/chrismaltby/gbvm/blob/master/include/vm.h#L82&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// logical operators
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_EQ 1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_LT 2
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_LE 3
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_GT 4
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_GE 5
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_NE 6
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_AND 7
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_OR 8
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#define VM_OP_NOT 9
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The values of &lt;code&gt;VM_OP_EQ&lt;/code&gt; &lt;code&gt;VM_OP_LT&lt;/code&gt; &lt;code&gt;VM_OP_GT&lt;/code&gt; &lt;code&gt;VM_OP_NE&lt;/code&gt; match with the ones I found before.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;At &lt;code&gt;CA38&lt;/code&gt; is the operation used (02 is &lt;code&gt;&amp;lt;&lt;/code&gt;, 01 is &lt;code&gt;==&lt;/code&gt;, 06 is &lt;code&gt;!=&lt;/code&gt;, 04 is &lt;code&gt;&amp;gt;&lt;/code&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// here we define all VM instructions: their handlers and parameter lengths in bytes
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// this array must be nonbanked as well as STEP_VM()
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// ...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{vm_load_text, &lt;span style="color:#a6e22e"&gt;BANK&lt;/span&gt;(VM_UI), &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;}, &lt;span style="color:#75715e"&gt;// 0x40
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This also matches with my previous finding.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;code&gt;40&lt;/code&gt; at &lt;code&gt;CA46&lt;/code&gt; seems to indicate the beginning of the string&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This must be it! Now it is easy to manually decode the instructions.&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;47 03 01 05 14 00 00 41 ff 00 44 07 01 45 fe 12 00 44 03 01 55 57 5e 0c 05 53 85 08 55 57 97 0c 06 53 86 04 1a 00 40 f3 78 2f 00 11 01
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To make sure I got the alignment correctly, I began decoding it from the start.&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;47 vm_overlay_clear
 03 01 05 14 00 00
 41 vm_display_text
 ff 00
@@ -174,17 +182,17 @@ fe 12 00
 86 04
 1a vm_if_const
 00 40 f3 78 2f 00 11 01
-&lt;/code>&lt;/pre>&lt;p>&lt;code>vm_if_const&lt;/code> is an if condition! Let&amp;rsquo;s decode it:
-&lt;code>1a 00 40 f3 78 2f 00 11 01&lt;/code>&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>1a&lt;/code> is vm_if_const&lt;/li>
-&lt;li>&lt;code>00&lt;/code>&lt;/li>
-&lt;li>&lt;code>40 f3&lt;/code> is the address of the &lt;code>vm_load_text&lt;/code> instruction for the flag string&lt;/li>
-&lt;li>&lt;code>78 2f&lt;/code> is the other number&lt;/li>
-&lt;li>&lt;code>00 11&lt;/code> is the ID of the counter variable&lt;/li>
-&lt;li>&lt;code>01&lt;/code> is an == comparison&lt;/li>
-&lt;/ul>
-&lt;p>&lt;code>78 2f&lt;/code> is the missing number! Yay!&lt;/p>
-&lt;p>It turns out that it wasn&amp;rsquo;t little endian&amp;hellip; bruh. At least we got the flag :)&lt;/p>
-&lt;p>&lt;code>CAT{Mew0_Mew0_G0_30767}&lt;/code>&lt;/p>
-&lt;p>Note: I didn&amp;rsquo;t mention other rabbit holes I fell into, like using ghidriff or checking the .sav files generated when you save the game, but they didn&amp;rsquo;t lead to anything worth mentioning.&lt;/p></content></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;vm_if_const&lt;/code&gt; is an if condition! Let&amp;rsquo;s decode it:
+&lt;code&gt;1a 00 40 f3 78 2f 00 11 01&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1a&lt;/code&gt; is vm_if_const&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;00&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;40 f3&lt;/code&gt; is the address of the &lt;code&gt;vm_load_text&lt;/code&gt; instruction for the flag string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;78 2f&lt;/code&gt; is the other number&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;00 11&lt;/code&gt; is the ID of the counter variable&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;01&lt;/code&gt; is an == comparison&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;78 2f&lt;/code&gt; is the missing number! Yay!&lt;/p&gt;
+&lt;p&gt;It turns out that it wasn&amp;rsquo;t little endian&amp;hellip; bruh. At least we got the flag :)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CAT{Mew0_Mew0_G0_30767}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Note: I didn&amp;rsquo;t mention other rabbit holes I fell into, like using ghidriff or checking the .sav files generated when you save the game, but they didn&amp;rsquo;t lead to anything worth mentioning.&lt;/p&gt;</content></item></channel></rss>
